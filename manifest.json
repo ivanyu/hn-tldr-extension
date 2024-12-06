@@ -1,0 +1,42 @@
+{
+    "manifest_version": 3,
+    "name": "Hacker News TL;DR",
+    "version": "0.1.0",
+    "description": "A bring-your-own-key extension for summarizing Hacker News articles with LLMs.",
+    "icons": {
+        "48": "icon.svg",
+        "96": "icon.svg"
+    },
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "hn_tldr@ivanyu.me"
+        }
+    },
+    "permissions": [
+        "storage"
+    ],
+    "host_permissions": [
+        "<all_urls>"
+    ],
+    "action": {
+        "default_title": "Show options"
+    },
+    "options_ui": {
+        "page": "options.html"
+    },
+    "content_scripts": [
+        {
+            "matches": ["*://news.ycombinator.com/*"],
+            "js": [
+                "browser-polyfill.js",
+                "content.js"
+            ]
+        }
+    ],
+    "background": {
+        "scripts": [
+            "browser-polyfill.js",
+            "background.js"
+        ]
+    }
+}

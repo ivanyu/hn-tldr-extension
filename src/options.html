@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="color-scheme" content="dark light">
+</head>
+
+<body>
+  <form id="optionsForm">
+    <table>
+      <tr>
+        <td>
+          <input type="radio" id="model-provider-openai" name="model-provider" value="model-provider-openai" disabled>
+          <label for="model-provider-openai" disabled>OpenAI (coming soon)</label>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <input type="radio" id="model-provider-anthropic" name="model-provider" value="model-provider-anthropic" checked>
+          <label for="model-provider-anthropic">Anthropic</label>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <label for="anthropic-api-key">Anthropic API Key: </label>
+          <input type="password" id="anthropic-api-key">
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <label for="anthropic-model">Model: </label>
+          <select id="anthropic-model" name="anthropic-model">
+            <option value="claude-3-5-haiku-20241022">Claude 3.5 Haiku</option>
+            <option value="claude-3-5-sonnet-20241022">Claude 3.5 Sonnet</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+  </form>
+
+  <script src="browser-polyfill.js"></script>
+  <script src="options.js"></script>
+</body>
+
+</html>
