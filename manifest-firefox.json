@@ -4,8 +4,11 @@
     "version": "0.1.0",
     "description": "A bring-your-own-key extension for summarizing Hacker News articles with LLMs.",
     "icons": {
-        "48": "icon.svg",
-        "96": "icon.svg"
+        "16": "icon16.png",
+        "32": "icon32.png",
+        "48": "icon48.png",
+        "96": "icon96.png",
+        "128": "icon128.png"
     },
     "browser_specific_settings": {
         "gecko": {

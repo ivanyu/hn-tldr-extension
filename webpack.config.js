@@ -7,7 +7,7 @@ module.exports = (env, argv) => {
         },
         output: {
             // filename: '[name].bundle.js',
-            path: path.resolve(__dirname, 'dist')
+            path: path.resolve(__dirname, 'dist-firefox')
         },
         devtool: argv.mode === 'production' ? "source-map" : "inline-cheap-source-map",
         optimization: {
@@ -25,8 +25,8 @@ module.exports = (env, argv) => {
                     { from: 'src/content.js', to: 'content.js' },
                     { from: 'src/options.html', to: 'options.html' },
                     { from: 'src/options.js', to: 'options.js' },
-                    { from: 'manifest.json', to: 'manifest.json' },
-                    { from: 'icon.svg', to: 'icon.svg' }
+                    { from: 'manifest-firefox.json', to: 'manifest.json' },
+                    { from: 'icons/*.png', to: '[name][ext]' }
                 ]
             })
         ]
