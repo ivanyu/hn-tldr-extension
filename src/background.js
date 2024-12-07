@@ -1,3 +1,15 @@
+try {
+    // Load `browser-polyfill.js` for Chrome.
+    importScripts("browser-polyfill.js");
+} catch (e) {
+    if (e instanceof ReferenceError) {
+        // It's probably Firefox, where `browser-polyfill.js` is provided through `background.scripts`.
+        // Do nothing.
+    } else {
+        throw e;
+    }
+}
+
 async function onInstalled() {
     const settings = await browser.storage.sync.get('internal.intro_shown');
     if (!settings['internal.intro_shown']) {
