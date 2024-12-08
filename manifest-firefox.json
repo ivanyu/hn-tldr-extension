@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Hacker News TL;DR",
     "version": "0.1.0",
-    "description": "A bring-your-own-key extension for summarizing Hacker News articles with LLMs.",
+    "description": "A bring-your-own-key extension for summarizing Hacker News articles with OpenAI and Anthropic LLMs.",
     "icons": {
         "16": "icon16.png",
         "32": "icon32.png",
@@ -39,6 +39,7 @@
     "background": {
         "scripts": [
             "browser-polyfill.js",
+            "options_const.js",
             "background.js"
         ]
     }

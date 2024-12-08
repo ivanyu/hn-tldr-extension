@@ -25,6 +25,7 @@ module.exports = (env, argv) => {
                     { from: 'src/content.js', to: 'content.js' },
                     { from: 'src/options.html', to: 'options.html' },
                     { from: 'src/options.js', to: 'options.js' },
+                    { from: 'src/options_const.js', to: 'options_const.js' },
                     { from: 'manifest-firefox.json', to: 'manifest.json' },
                     { from: 'icons/*.png', to: '[name][ext]' }
                 ]

@@ -25,7 +25,7 @@ build-firefox: dist-firefox
 
 dist-chrome: dist-firefox
 	cp -r dist-firefox dist-chrome
-	jq '.background = {"service_worker": .background.scripts[1]}' < dist-chrome/manifest.json > dist-chrome/manifest-tmp.json
+	jq '.background = {"service_worker": .background.scripts[-1]}' < dist-chrome/manifest.json > dist-chrome/manifest-tmp.json
 	mv dist-chrome/manifest-tmp.json dist-chrome/manifest.json
 
 .PHONY: build-chrome
