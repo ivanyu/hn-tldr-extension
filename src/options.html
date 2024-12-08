@@ -1,48 +1,78 @@
 <!DOCTYPE html>
 
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta name="color-scheme" content="dark light">
+
+  <style>
+    .options-group {
+      border: 1px solid #ccc;
+      padding: 0.5em 0.5em;
+      margin-bottom: -1px;
+    }
+
+    .options-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      margin: 1em 0;
+    }
+
+    .options-row-input {
+      flex: 0.9;
+    }
+  </style>
 </head>
 
 <body>
   <form id="optionsForm">
-    <table>
-      <tr>
-        <td>
-          <input type="radio" id="model-provider-openai" name="model-provider" value="model-provider-openai" disabled>
-          <label for="model-provider-openai" disabled>OpenAI (coming soon)</label>
-        </td>
-      </tr>
+    <div id="openai-options" class="options-group">
+      <div class="options-row">
+        <input type="radio" id="provider-openai" name="provider" value="openai" checked>
+        <label for="provider-openai">OpenAI</label>
+      </div>
 
-      <tr>
-        <td>
-          <input type="radio" id="model-provider-anthropic" name="model-provider" value="model-provider-anthropic" checked>
-          <label for="model-provider-anthropic">Anthropic</label>
-        </td>
-      </tr>
+      <div class="options-row">
+        <label for="openai-api-key">API Key: </label>
+        <input type="password" id="openai-api-key" class="options-row-input">
+      </div>
 
-      <tr>
-        <td>
-          <label for="anthropic-api-key">Anthropic API Key: </label>
-          <input type="password" id="anthropic-api-key">
-        </td>
-      </tr>
+      <div class="options-row">
+        <label for="openai-model">Model: </label>
+        <select id="openai-model" name="openai-model" style="flex: 0.3;">
+          <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
+          <option value="gpt-4">gpt-4</option>
+          <option value="gpt-4o-mini">gpt-4o-mini</option>
+          <option value="gpt-4o">gpt-4o</option>
+        </select>
+      </div>
+    </div>
 
-      <tr>
-        <td>
-          <label for="anthropic-model">Model: </label>
-          <select id="anthropic-model" name="anthropic-model">
-            <option value="claude-3-5-haiku-20241022">Claude 3.5 Haiku</option>
-            <option value="claude-3-5-sonnet-20241022">Claude 3.5 Sonnet</option>
-          </select>
-        </td>
-      </tr>
-    </table>
+    <div id="anthropic-options" class="options-group">
+      <div class="options-row">
+        <input type="radio" id="provider-anthropic" name="provider" value="anthropic">
+        <label for="provider-anthropic">Anthropic</label>
+      </div>
+
+      <div class="options-row">
+        <label for="anthropic-api-key">API Key: </label>
+        <input type="password" id="anthropic-api-key" class="options-row-input">
+      </div>
+
+      <div class="options-row">
+        <label for="anthropic-model">Model: </label>
+        <select id="anthropic-model" name="anthropic-model">
+          <option value="claude-3-5-haiku-20241022">claude-3-5-haiku-20241022</option>
+          <option value="claude-3-5-sonnet-20241022">claude-3-5-sonnet-20241022</option>
+        </select>
+      </div>
+    </div>
   </form>
 
   <script src="browser-polyfill.js"></script>
+  <script src="options_const.js"></script>
   <script src="options.js"></script>
 </body>
 

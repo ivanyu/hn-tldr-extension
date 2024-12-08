@@ -1,8 +1,8 @@
 # Hacker News TL;DR
 
-A bring-your-own-key browser extension for summarizing Hacker News articles with LLMs.
+A bring-your-own-key browser extension for summarizing Hacker News articles with OpenAI and Anthropic LLMs.
 
-The extension will add the summarize buttons to the HN front page and article pages. Just provide your Anthropic (or soon OpenAI) API key and you're good to go.
+The extension will add the summarize buttons to the HN front page and article pages. Just provide your Anthropic or OpenAI API key and you're good to go.
 
 ![Screenshot 1](screen1.png)
 
