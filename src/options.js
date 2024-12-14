@@ -16,6 +16,8 @@ async function loadOptions() {
         OPENAI_MODEL_CONF,
         ANTHROPIC_API_KEY_CONF,
         ANTHROPIC_MODEL_CONF,
+        OLLAMA_MODEL_CONF,
+        OLLAMA_URL_CONF,
     ]);
 
     const provider = options[PROVIDER_CONF] || DEFAULT_PROVIDER;
@@ -23,6 +25,8 @@ async function loadOptions() {
         document.querySelector("#provider-openai").checked = true;
     } else if (provider === ANTHROPIC_PROVIDER) {
         document.querySelector("#provider-anthropic").checked = true;
+    } else if (provider === OLLAMA_PROVIDER) {
+        document.querySelector("#provider-ollama").checked = true;
     }
 
     const openaiApiKey = options[OPENAI_API_KEY_CONF];
@@ -40,37 +44,49 @@ async function loadOptions() {
 
     const anthropicModel = options[ANTHROPIC_MODEL_CONF] || DEFAULT_ANTHROPIC_MODEL;
     document.querySelector("#anthropic-model").value = anthropicModel;
+
+    const ollamaUrl = options[OLLAMA_URL_CONF];
+    if (ollamaUrl) {
+        document.querySelector("#ollama-url").value = ollamaUrl;
+    }
+    const ollamaModel = options[OLLAMA_MODEL_CONF];
+    if (ollamaModel) {
+        document.querySelector("#ollama-model").value = ollamaModel;
+    }
 }
 
 document.addEventListener('DOMContentLoaded', loadOptions);
 
 document.addEventListener('DOMContentLoaded', function () {
-    const openaiProviderRadio = document.getElementById('provider-openai');
-    openaiProviderRadio.addEventListener('change', async (event) => {
-        await saveOption(event, PROVIDER_CONF, OPENAI_PROVIDER);
-    });
-    const anthropicProviderRadio = document.getElementById('provider-anthropic');
-    anthropicProviderRadio.addEventListener('change', async (event) => {
-        await saveOption(event, PROVIDER_CONF, ANTHROPIC_PROVIDER);
-    });
+    function createChangeListener(confName) {
+        return async (event) => {
+            await saveOption(event, confName, event.target.value);
+        }
+    }
 
-    const openaiApiKeyInput = document.getElementById('openai-api-key');
-    openaiApiKeyInput.addEventListener('blur', async (event) => {
-        await saveOption(event, OPENAI_API_KEY_CONF, event.target.value);
-    });
+    // OpenAI
+    document.getElementById('provider-openai')
+        .addEventListener('change', createChangeListener(PROVIDER_CONF));
+    document.getElementById('openai-api-key')
+        .addEventListener('blur', createChangeListener(OPENAI_API_KEY_CONF));
+    document.getElementById('openai-model')
+        .addEventListener('change', createChangeListener(OPENAI_MODEL_CONF));
 
-    const openaiModelSelect = document.getElementById('openai-model');
-    openaiModelSelect.addEventListener('change', async (event) => {
-        await saveOption(event, OPENAI_MODEL_CONF, event.target.value);
-    });
 
-    const anthropicApiKeyInput = document.getElementById('anthropic-api-key');
-    anthropicApiKeyInput.addEventListener('blur', async (event) => {
-        await saveOption(event, ANTHROPIC_API_KEY_CONF, event.target.value);
-    });
+    // Anthropic
+    document.getElementById('provider-anthropic')
+        .addEventListener('change', createChangeListener(PROVIDER_CONF));
+    document.getElementById('anthropic-api-key')
+        .addEventListener('blur', createChangeListener(ANTHROPIC_API_KEY_CONF));
+    document.getElementById('anthropic-model')
+        .addEventListener('change', createChangeListener(ANTHROPIC_MODEL_CONF));
 
-    const anthropicModelSelect = document.getElementById('anthropic-model');
-    anthropicModelSelect.addEventListener('change', async (event) => {
-        await saveOption(event, ANTHROPIC_MODEL_CONF, event.target.value);
-    });
+
+    // Ollama
+    document.getElementById('provider-ollama')
+        .addEventListener('change', createChangeListener(PROVIDER_CONF));
+    document.getElementById('ollama-url')
+        .addEventListener('blur', createChangeListener(OLLAMA_URL_CONF));
+    document.getElementById('ollama-model')
+        .addEventListener('blur', createChangeListener(OLLAMA_MODEL_CONF));
 });

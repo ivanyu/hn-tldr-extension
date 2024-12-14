@@ -72,6 +72,29 @@
         </select>
       </div>
     </div>
+
+    <div id="ollama-options" class="options-group">
+      <div class="options-row">
+        <input type="radio" id="provider-ollama" name="provider" value="ollama">
+        <label for="provider-ollama">Ollama</label>
+      </div>
+
+      <div class="options-row">
+        <label for="ollama-url" style="align-self: flex-start;">URL: </label>
+        <div class="options-row-input">
+          <input type="text" id="ollama-url" style="width: 100%;" placeholder="e.g. http://localhost:11434/">
+          <br>
+          <span style="font-size: small; font-style: italic;">
+            Run Ollama with <code>OLLAMA_ORIGINS=chrome-extension://*,moz-extension://*</code> (or one of those) to allow the extension to connect to it.
+          </span>
+        </div>
+      </div>
+
+      <div class="options-row">
+        <label for="ollama-model">Model: </label>
+        <input type="text" id="ollama-model" class="options-row-input" placeholder="e.g. llama3.2:1b">
+      </div>
+    </div>
   </form>
 
   <script src="browser-polyfill.js"></script>

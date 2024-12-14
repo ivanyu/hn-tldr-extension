@@ -49,16 +49,20 @@ async function getSummary(pageContent) {
         OPENAI_MODEL_CONF,
         ANTHROPIC_API_KEY_CONF,
         ANTHROPIC_MODEL_CONF,
+        OLLAMA_URL_CONF,
+        OLLAMA_MODEL_CONF,
     ]);
 
     var url = "";
     const headers = {
         'content-type': 'application/json'
     };
+    const promptOpening = "I want you to summarize the following HTML body:";
+    const promptClosing = "Please return only the summary, no other text or comments. Do not call it 'HTML body', but 'page'.";
     const requestContent = [
-        { "type": "text", "text": "I want you to summarize the following HTML body:" },
+        { "type": "text", "text": promptOpening },
         { "type": "text", "text": pageContent },
-        { "type": "text", "text": "Please return only the summary, no other text or comments. Do not call it 'HTML body', but 'page'." },
+        { "type": "text", "text": promptClosing },
     ];
     const body = {
         "messages": [{ "role": "user", "content": requestContent }],
@@ -106,6 +110,28 @@ async function getSummary(pageContent) {
             body['max_tokens'] = maxTokens;
             break;
 
+        case OLLAMA_PROVIDER:
+            if (!options[OLLAMA_URL_CONF]) {
+                throw new Error('Ollama URL not found');
+            }
+            if (!options[OLLAMA_MODEL_CONF]) {
+                throw new Error('Ollama model not found');
+            }
+            // Remove any trailing slash from base URL before appending path
+            const baseUrl = options[OLLAMA_URL_CONF].replace(/\/+$/, '');
+            url = baseUrl + '/api/generate';
+            
+            model = options[OLLAMA_MODEL_CONF];
+            body['stream'] = false;
+            body['system'] = systemPrompt;
+            delete body['messages'];
+            body['prompt'] = promptOpening + '\n' + pageContent + '\n' + promptClosing;
+            body['options'] = {
+                'num_predict': 1000,
+            };
+
+            break;
+
         default:
             throw new Error('Unknown provider: ' + options[PROVIDER_CONF]);
     }
@@ -145,6 +171,12 @@ async function getSummary(pageContent) {
             }
             result['input_tokens'] = responseJson.usage.input_tokens;
             result['output_tokens'] = responseJson.usage.output_tokens;
+            break;
+
+        case OLLAMA_PROVIDER:
+            result['summary'].push(responseJson.response);
+            result['input_tokens'] = responseJson.prompt_eval_count;
+            result['output_tokens'] = responseJson.eval_count;
             break;
     }
     return result;
