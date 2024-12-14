@@ -1,6 +1,9 @@
+CHROME_ARTIFACT_DIR=web-ext-artifacts-chrome
+FIREFOX_ARTIFACT_DIR=web-ext-artifacts-firefox
+
 .PHONY: clean
 clean:
-	rm -rf dist-firefox dist-chrome web-ext-artifacts-firefox web-ext-artifacts-chrome
+	rm -rf dist-firefox dist-chrome $(CHROME_ARTIFACT_DIR) $(FIREFOX_ARTIFACT_DIR)
 
 .PHONY: dev-prepare
 dev-prepare:
@@ -20,7 +23,8 @@ dist-firefox:
 
 .PHONY: build-firefox
 build-firefox: dist-firefox
-	npx web-ext build --source-dir dist-firefox --artifacts-dir web-ext-artifacts-firefox --overwrite-dest
+	npx web-ext build --source-dir dist-firefox --artifacts-dir $(FIREFOX_ARTIFACT_DIR) --overwrite-dest
+	cd $(FIREFOX_ARTIFACT_DIR) && for f in *.zip; do mv "$$f" "$$(echo $$f | sed 's/\.zip/-firefox.zip/')" ; done
 
 
 dist-chrome: dist-firefox
@@ -30,8 +34,8 @@ dist-chrome: dist-firefox
 
 .PHONY: build-chrome
 build-chrome: dist-chrome
-	npx web-ext build --source-dir dist-chrome --artifacts-dir web-ext-artifacts-chrome --overwrite-dest
-
+	npx web-ext build --source-dir dist-chrome --artifacts-dir $(CHROME_ARTIFACT_DIR) --overwrite-dest
+	cd $(CHROME_ARTIFACT_DIR) && for f in *.zip; do mv "$$f" "$$(echo $$f | sed 's/\.zip/-chrome.zip/')" ; done
 
 .PHONY: build
 build: build-firefox build-chrome
