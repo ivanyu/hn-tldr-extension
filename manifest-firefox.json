@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
     "name": "Hacker News TL;DR",
-    "version": "0.2.0",
-    "description": "A bring-your-own-key extension for summarizing Hacker News articles with OpenAI and Anthropic LLMs.",
+    "version": "0.3.0",
+    "description": "A bring-your-own-key extension for summarizing Hacker News articles with OpenAI, Anthropic, and Ollama LLMs.",
     "icons": {
         "16": "icon16.png",
         "32": "icon32.png",
